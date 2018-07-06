@@ -1,0 +1,38 @@
+.shrinkwrap {
+    display:inline-block
+}
+.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.game-background {
+    background-color: lightslategrey
+}
+.card-background {
+    background-color: lightskyblue
+}
+.board-background {
+    background-color: lightgoldenrodyellow
+}
+.player-background {
+    background-color: lightcoral
+}
+.max-height {
+    height: 100%
+}
+.hand-card {
+    width: 5vw
+}
+.board-card {
+    height: 17vh
+}
+.board-light {
+    height: 15vh
+}
+.board-light-container {
+    width: 20vw
+}
+.board-divider {
+    width: 10vw
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <title>Pazaak</title>
+    <meta charset="utf-8" /> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="pazaakController.js"></script>
+    <body class="game-background">
+        <div ng-app="pazaakApp" ng-controller="pazaakCtrl">
+            <div class="grid-y grid-frame grid-padding-y">
+                <div class="cell shrink cell-block-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell auto">
+                            {{player.name}}
+                        </div>
+                        <div class="cell shrink">
+                            {{player.score}}
+                        </div>
+                        <div class="board-divider">
+
+                        </div>
+                        <div class="cell shrink">
+                            {{opponent.score}}
+                        </div>
+                        <div class="cell auto text-right">
+                            {{opponent.name}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell auto cell-block-container">
+                    <div class="grid-x grid-frame max-height grid-padding-x">
+                        <div class="cell auto max-height text-right board-light-container">
+                            <img ng-src="assets/nowin.png" class="img board-light" />
+                            <img ng-src="assets/nowin.png" class="img board-light" />
+                            <img ng-src="assets/nowin.png" class="img board-light" />
+                        </div>
+                        <div class="cell auto cell-block-container max-height" ng-repeat="row in playerBoard">
+                            <div class="grid-y max-height">
+                                <div class="cell auto max-height" ng-repeat="card in row track by $index">
+                                    <img ng-if="card.type" ng-src="assets/{{card.type}}{{card.value}}.jpg" class="img board-card" />
+                                    <img ng-if="!card.type" ng-src="assets/null.jpg" class="img board-card" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-divider">
+                            
+                        </div>
+                        <div class="cell auto cell-block-container max-height" ng-repeat="row in opponentBoard">
+                            <div class="grid-y max-height">
+                                <div class="cell auto max-height text-right" ng-repeat="card in row track by $index">
+                                    <img ng-if="card.type" ng-src="assets/{{card.type}}{{card.value}}.jpg" class="img board-card" />
+                                    <img ng-if="!card.type" ng-src="assets/null.jpg" class="img board-card" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cell auto max-height board-light-container">
+                            <img ng-src="assets/nowin.png" class="img board-light" />
+                            <img ng-src="assets/nowin.png" class="img board-light" />
+                            <img ng-src="assets/nowin.png" class="img board-light" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell shrink cell-block-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell auto">
+                            Player Hand
+                        </div>
+                        <div class="board-divider">
+                            
+                        </div>
+                        <div class="cell auto text-right">
+                            Opponent Hand
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell shrink cell-block-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="cell large-1">
+
+                        </div>
+                        <div class="cell large-1 text-center" ng-repeat="card in playerHand">
+                            <img ng-src="assets/{{card.type}}{{card.value}}.jpg" ng-click="addBoardCard()" class="img hand-card" />
+                            <br>
+                            <span ng-if="card.type == 'pm'">FLIP</span>
+                        </div>
+                        <div class="cell auto">
+                        </div>
+                        <div class="cell large-1 text-center" ng-repeat="card in opponentHand">
+                            <img ng-src="assets/null.jpg" class="img hand-card" />
+                        </div>
+                        <div class="cell large-1">
+
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="cell shrink cell-block-container">
+                    <div class="grid-x">
+                        <div class="cell auto button-group align-center">
+                            <button class="button" ng-click="addBoardCard()">
+                                End Turn
+                            </button>
+                            <button class="button">
+                                Stand
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
