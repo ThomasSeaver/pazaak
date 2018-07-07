@@ -36,9 +36,9 @@
                 <div class="cell auto cell-block-container">
                     <div class="grid-x grid-frame max-height grid-padding-x">
                         <div class="cell auto max-height text-right board-light-container">
-                            <img ng-src="assets/nowin.png" class="img board-light" />
-                            <img ng-src="assets/nowin.png" class="img board-light" />
-                            <img ng-src="assets/nowin.png" class="img board-light" />
+                            <img ng-src="{{winCount('player', 1)}}" class="img board-light" />
+                            <img ng-src="{{winCount('player', 2)}}" class="img board-light" />
+                            <img ng-src="{{winCount('player', 3)}}" class="img board-light" />
                         </div>
                         <div class="cell auto cell-block-container max-height" ng-repeat="row in playerBoard">
                             <div class="grid-y max-height">
@@ -60,9 +60,9 @@
                             </div>
                         </div>
                         <div class="cell auto max-height board-light-container">
-                            <img ng-src="assets/nowin.png" class="img board-light" />
-                            <img ng-src="assets/nowin.png" class="img board-light" />
-                            <img ng-src="assets/nowin.png" class="img board-light" />
+                            <img ng-src="{{winCount('opponent', 1)}}" class="img board-light" />
+                            <img ng-src="{{winCount('opponent', 2)}}" class="img board-light" />
+                            <img ng-src="{{winCount('opponent', 3)}}" class="img board-light" />
                         </div>
                     </div>
                 </div>
@@ -86,15 +86,17 @@
                         <div class="cell large-1">
 
                         </div>
-                        <div class="cell large-1 text-center" ng-repeat="card in playerHand">
-                            <img ng-src="assets/{{card.type}}{{card.value}}.jpg" ng-click="addBoardCard()" class="img hand-card" />
+                        <div class="cell large-1 text-center" ng-repeat="card in playerHand track by $index">
+                            <img ng-if="card.type" ng-src="{{getCardImage(card)}}" ng-click="playCard($index)" class="img hand-card"  />
+                            <img ng-if="!card.type" ng-src="assets/null.jpg" class="img hand-card" />
                             <br>
-                            <span ng-if="card.type == 'pm'">FLIP</span>
+                            <button ng-if="card.type == 'pm' || card.type == 'mp'" class="secondary button" ng-click="flipCard($index)">FLIP</button>
                         </div>
                         <div class="cell auto">
                         </div>
-                        <div class="cell large-1 text-center" ng-repeat="card in opponentHand">
-                            <img ng-src="assets/null.jpg" class="img hand-card" />
+                        <div class="cell large-1 text-center" ng-repeat="card in opponentHand track by $index">
+                                <img ng-if="card.type" ng-src="{{getCardImage(card)}}" ng-click="playCard($index)" class="img hand-card"  />
+                                <img ng-if="!card.type" ng-src="assets/null.jpg" class="img hand-card" />
                         </div>
                         <div class="cell large-1">
 
@@ -104,13 +106,24 @@
 
                 <div class="cell shrink cell-block-container">
                     <div class="grid-x">
-                        <div class="cell auto button-group align-center">
-                            <button class="button" ng-click="addBoardCard()">
+                        <div class="cell large-5 button-group align-center">
+                            <button class="button" ng-disabled="gameDone" ng-click="endTurn()">
                                 End Turn
                             </button>
-                            <button class="button">
+                            <button class="button" ng-disabled="gameDone"  ng-click="stand()">
                                 Stand
                             </button>
+                        </div>
+                        <div class="cell large-2 center">
+                            <button class="button" ng-if="gameDone" ng-click="resetGame()">
+                                Start New Game
+                            </button>
+                            <button class="button" ng-if="matchDone" ng-click="resetMatch()">
+                                Start New Match
+                            </button>
+                        </div>
+                        <div class="cell auto">
+                            
                         </div>
                     </div>
                 </div>
