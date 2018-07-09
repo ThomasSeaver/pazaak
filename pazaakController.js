@@ -246,7 +246,7 @@ app.controller('pazaakCtrl', function($scope) {
     }
 
     $scope.playCard = function(index) {
-        if (!$scope.player.playedTurn) {
+        if (!$scope.player.playedTurn && !$scope.gameDone) {
             $scope.player.playedTurn = true;
             addBoardCard("player", $scope.playerHand[index]);
             $scope.playerHand[index] = null;
